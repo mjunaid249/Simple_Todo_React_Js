@@ -37,14 +37,14 @@ const Todo = () => {
   //Edit Todo
   function editTodo(id, editedTitle) {
     const editedTodoList = todoList.map((todo) => {
-      if (todo.id === id) {
+      if (todo.id === id && editedTitle !== "") {
         return { ...todo, title: editedTitle };
       } else {
         return todo;
       }
     });
     setTodoList(editedTodoList);
-    toast.success("Task Edited");
+    if (editedTitle !== "") toast.success("Task Edited");
   }
   return (
     <main className="flex flex-col mt-6 min-h-[90vh] items-center justify-between gap-10 py-3 w-[40rem]">
@@ -131,7 +131,9 @@ const Todo = () => {
                   <button
                     className="edit-todo-btn rounded-sm text-white bg-green-800 py-1 px-3 hover:opacity-80"
                     onClick={() => {
-                      editTodo(todo.id, prompt("Edit your Todo", todo.title));
+                      if (todo.title !== "") {
+                        editTodo(todo.id, prompt("Edit your Todo", todo.title));
+                      }
                     }}
                   >
                     <svg
